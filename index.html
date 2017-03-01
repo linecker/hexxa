@@ -1,0 +1,56 @@
+<html><head>
+<title>Hexxa - Online Calculator</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="UTF-8"> 
+<script src="index_files/calc.js"></script>
+<script language="JavaScript">
+function evaluateInput(event) {   
+    var code = event.keyCode;
+    // Only evaluate on enter
+    if (code == 13) {
+	    input = document.getElementById('h_in').value;
+		var output = calculate(input);
+		var outRadix = document.getElementById('h_out_radix').value;
+		//console.log("outRadix = " + outRadix);
+		var pre="";
+		if (outRadix == 2) { pre = "0b"; output = output.toString(2); }
+		else if (outRadix == 8) { pre = "0"; output = output.toString(8); }
+		else if (outRadix == 16) { pre = "0x"; output = output.toString(16); }
+		if (error) output = "---";
+		document.getElementById('h_in').value = "";
+    	document.getElementById('h_out').value = 
+    		input + "=" + pre + output + "\n" + 
+        	document.getElementById('h_out').value; 
+    }
+}
+</script>
+<style>
+* { margin: 10px;}
+body { font-family: 'Courier New'; font-size: 22px; background-color: #f0f0f0; color: #666; }
+#h_in { color: #333; font-family: 'Courier New';  width: 98%; height: 50px; padding-left: 10px; font-size: 16px; border: 1px solid #fff; border-bottom: 1px solid #ddd; margin-bottom: 0px; box-shadow: 1px 1px 3px #888888; }
+#h_out { background-color: #fafafa; color: #333; font-family: 'Courier New'; width: 98%; height: 80%; margin-top: 0px; padding: 10px; font-size: 18px; line-height: 28px; border: 1px solid #fff; box-shadow: 1px 1px 3px #888888; }
+</style>
+</head>
+<body>
+<span style="font-family: 'Arial'">HEXXA</span><br>
+
+<input id="h_in" onkeyup="evaluateInput(event)" autofocus="autofocus" type="text">
+<textarea id="h_out" type="text">1 + 1 = 2
+</textarea>
+<br>
+<select id="h_out_bits">
+	<option value="8">8</option>
+    <option value="16">16</option>
+	<option value="32">32</option>
+	<option value="64" selected="selected">64</option>	
+</select>
+<select id="h_out_radix">
+	<option value="2">Binary output</option>
+    <option value="8">Octal output</option>
+	<option value="10" selected="selected">Decimal output</option>
+	<option value="16">Hexadecimal output</option>	
+</select>
+<input value="Clear Log" onclick="document.getElementById('h_out').value='';" type="button">
+<br>
+
+
+</body></html>
